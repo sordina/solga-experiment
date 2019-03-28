@@ -20,7 +20,6 @@ import Network.Wai
 import Data.Swagger
 import Network.HTTP.Types.Status
 import qualified Data.ByteString.Char8 as B
-import qualified Data.ByteString.Lazy.Char8 as L
 
 main :: IO ()
 main = run 8888 server
@@ -28,6 +27,7 @@ main = run 8888 server
 foo :: Either (Text, Context) Swagger
 foo = genSwagger (Proxy :: Proxy MyAPI)
 
+bar :: Value
 bar = either (toJSON . show) toJSON foo
 
 data FOF
@@ -51,7 +51,7 @@ data MyAPI = MyAPI
 instance Router MyAPI
 instance RouterSwagger MyAPI
 instance ToSchema Value where
-  declareNamedSchema v = declareNamedSchema (Proxy :: Proxy Text)
+  declareNamedSchema _ = declareNamedSchema (Proxy :: Proxy Text)
 
 myAPI :: MyAPI
 myAPI = MyAPI
