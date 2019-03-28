@@ -1,0 +1,38 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 8e2d499396a80b37fc51f9a81f298faa4f7f994a19cb6b261c9ae10f938cb9fe
+
+name:           solga-test
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/githubuser/solga-test#readme
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+executable solga-test
+  main-is: Main.hs
+  other-modules:
+      Paths_solga_test
+  hs-source-dirs:
+      src
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , bytestring
+    , http-types
+    , solga
+    , solga-swagger
+    , text
+    , wai
+    , warp
+  default-language: Haskell2010

@@ -1,0 +1,10 @@
+resolver: lts-13.14
+
+packages:
+- .
+
+extra-deps:
+- /Users/lyndon/temp/kjhasdlkfjhslfk/solga/solga
+- /Users/lyndon/temp/kjhasdlkfjhslfk/solga/solga-swagger
+
+  #- solga-0.1.0.2
