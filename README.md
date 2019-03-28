@@ -11,3 +11,7 @@ Findings:
 	- Worked around this by creating a few instances
 * Couldn't compile solga against recent version of GHC
 	- Bug is quite old just needs a type equality constraint
+	- [Example of fix](https://github.com/FintanH/solga/blob/build_error/solga/src/Solga.hs#L286)
+	- [Bug raised](https://github.com/chpatrick/solga/issues/9)
+* Can't return generic JSON values... No ToSchema instance
+	- Worked around by faking as text

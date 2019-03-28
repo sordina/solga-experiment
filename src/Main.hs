@@ -28,7 +28,7 @@ main = run 8888 server
 foo :: Either (Text, Context) Swagger
 foo = genSwagger (Proxy :: Proxy MyAPI)
 
-bar = either show (L.unpack . encode) foo
+bar = either (toJSON . show) toJSON foo
 
 data FOF
   = FOF
@@ -44,12 +44,14 @@ data MyAPI = MyAPI
   , doesItWork    :: "does-it-work"    /> Method "GET"                :> JSON Text
   , whatAboutThis :: "what-about-this" /> Method "GET"                :> JSON Text
   , fun           :: "fun"             /> Method "GET"                :> Capture Text :> JSON Text
-  , apischema     :: "apischema"       /> Method "GET"                :> JSON String
+  , apischema     :: "apischema"       /> Method "GET"                :> JSON Value
   , missing       :: Method "GET"      :> FixedStatus 404 "Not Found" :> JSON FOF
   } deriving (Generic)
 
 instance Router MyAPI
 instance RouterSwagger MyAPI
+instance ToSchema Value where
+  declareNamedSchema v = declareNamedSchema (Proxy :: Proxy Text)
 
 myAPI :: MyAPI
 myAPI = MyAPI
