@@ -19,6 +19,9 @@ import GHC.TypeLits
 import Network.Wai
 import Data.Swagger
 import Network.HTTP.Types.Status
+import Network.Wai.Middleware.RequestLogger
+import Control.Monad.IO.Class
+
 import qualified Data.ByteString.Char8 as B
 
 main :: IO ()
@@ -43,7 +46,7 @@ data MyAPI = MyAPI
   { root          :: End               :> Method "GET"                :> JSON Text
   , doesItWork    :: "does-it-work"    /> Method "GET"                :> JSON Text
   , whatAboutThis :: "what-about-this" /> Method "GET"                :> JSON Text
-  , fun           :: "fun"             /> Method "GET"                :> Capture Text :> JSON Text
+  , fun           :: "fun"             /> Method "GET"                :> Capture Text :> WithIO :> JSON Text
   , apischema     :: "apischema"       /> Method "GET"                :> JSON Value
   , missing       :: Method "GET"      :> FixedStatus 404 "Not Found" :> JSON FOF
   } deriving (Generic)
@@ -58,13 +61,14 @@ myAPI = MyAPI
   { root          = brief "Home!"
   , doesItWork    = brief "It works!"
   , whatAboutThis = brief "It also works!"
-  , fun           = brief (\x -> x <> "!!!")
   , missing       = brief $ FOF "lolz"
   , apischema     = brief bar
+  , fun           = brief $ \x -> do print x
+                                     return $ x <> "!!!"
   }
 
 server :: Network.Wai.Application
-server = serve myAPI
+server = logStdoutDev $ serve myAPI
 
 -- Experimenting with creatng a new router to add arbitrary statuses to responses
 

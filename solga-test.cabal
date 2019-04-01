@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8e2d499396a80b37fc51f9a81f298faa4f7f994a19cb6b261c9ae10f938cb9fe
+-- hash: e70e678b9fefe741da860996dc5c419b50473cd5c5ea12f54e15811df71aa864
 
 name:           solga-test
 version:        0.1.0.0
@@ -32,7 +32,9 @@ executable solga-test
     , http-types
     , solga
     , solga-swagger
+    , swagger2
     , text
     , wai
+    , wai-extra
     , warp
   default-language: Haskell2010

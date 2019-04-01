@@ -16,9 +16,11 @@ dependencies:
   - bytestring
   - http-types
   - wai
+  - wai-extra
   - aeson
   - warp
   - text
+  - swagger2
 
 executables:
   solga-test:
